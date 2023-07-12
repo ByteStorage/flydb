@@ -82,7 +82,7 @@ func (s *store) newRaftNode() error {
 	t := newTransport()
 
 	// create the snapshot store. This allows the Raft to truncate the log.
-	snapshots := newSnapshot()
+	snapshots, _ := newSnapshotStore()
 
 	// create the log store and stable store
 	logStore := newRaftLog()
