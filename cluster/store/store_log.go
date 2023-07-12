@@ -9,7 +9,7 @@ import (
 
 // DataStoreFactory is a function type that creates a new instance of a raft.LogStore.
 // It takes a configuration map as input and returns the created LogStore or an error if the creation fails.
-type DataStoreFactory func(conf config.Options) (raft.LogStore, error)
+type DataStoreFactory func(conf config.Options) (datastore.DataStore, error)
 
 // datastoreFactories is a map that associates a string key (name) with a DataStoreFactory.
 // It will be used to store and retrieve different DataStoreFactory implementations.
@@ -72,7 +72,7 @@ func Register(name string, factory DataStoreFactory) error {
 // Otherwise, it retrieves the corresponding DataStoreFactory from the map.
 // Finally, it creates a new LogStore using the factory and the configuration map and returns it
 // along with an error (if any).
-func getDataStore(datastore string, conf config.Options) (raft.LogStore, error) {
+func getDataStore(datastore string, conf config.Options) (datastore.DataStore, error) {
 	// Get the DataStoreFactory for the requested datastore
 	dsFactory, ok := datastoreFactories[datastore]
 	if !ok {

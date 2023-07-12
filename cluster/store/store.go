@@ -89,7 +89,10 @@ func (s *store) newRaftNode() error {
 	if err != nil {
 		return err
 	}
-	stableStore := newStableLog()
+	stableStore, err := newStableLog()
+	if err != nil {
+		return err
+	}
 
 	// create a new finite state machine
 	f := newFSM()
